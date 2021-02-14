@@ -37,7 +37,7 @@ Things you may want to cover:
 | first_name         | string | null: false |
 | last_name_kana     | string | null: false |
 | first_name_kana    | string | null: false |
-| birth-date         | data   | null: false |
+| birth_date         | data   | null: false |
 
 ### Association
 
@@ -46,21 +46,21 @@ Things you may want to cover:
 
 ## items テーブル
 
-| Column                   | Type       | Options                        |
-| ------------------------ | ---------- | ------------------------------ |
-| item_name                | string     | null: false                    |
-| item_info                | text       | null: false                    |
-| item_sales_status        | text       | null: false                    |
-| item_shipping_fee_status | string     | null: false                    |
-| item-prefecture          | string     | null: false                    |
-| item-scheduled-delivery  | integer    | null: false                    |
-| purchase_item_id         | integer    | null: false                    |
-| user                     | references | null: false, foreign_key: true |
+| Column              | Type       | Options                        |
+| ------------------- | ---------- | ------------------------------ |
+| name                | string     | null: false                    |
+| info                | text       | null: false                    |
+| sales_status        | text       | null: false                    |
+| shipping_fee_status | string     | null: false                    |
+| prefecture          | string     | null: false                    |
+| scheduled_delivery  | integer    | null: false                    |
+| purchase_item_id    | integer    | null: false                    |
+| user                | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :users
-- has_one :purchase_items
+- has_one :purchase_item
 
 ## purchase_items テーブル
 
@@ -79,13 +79,13 @@ Things you may want to cover:
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
-| postal-code      | integer    | null: false                    |
+| postal_code      | sting      | null: false                    |
 | purchase_item_id | integer    | null: false                    |
 | city             | string     | null: false                    |
 | address          | string     | null: false                    |
 | building         | string     |                                |
-| phone-number     | string     | null: false                    |
+| phone_number     | string     | null: false                    |
 
 ### Association
 
-- belongs_to :purchase_items
+- belongs_to :purchase_item
