@@ -1,9 +1,8 @@
 class Item < ApplicationRecord
-  
   validates :image, presence: true
   validates :name, presence: true
   validates :info, presence: true
-  validates :price, presence: true, inclusion: { in: 300..9999999 }
+  validates :price, presence: true, inclusion: { in: 300..9_999_999 }
 
   belongs_to :user
   has_one_attached :image
