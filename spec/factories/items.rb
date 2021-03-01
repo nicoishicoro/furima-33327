@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :item do
-    image                  { 'aaa.png' }
     name                   { 'aaaaaa' }
     info                   { 'aaaaaa' }
     category_id            { 2 }
