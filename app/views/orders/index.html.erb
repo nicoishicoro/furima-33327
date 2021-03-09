@@ -7,14 +7,14 @@
     </h1>
     <%# 購入内容の表示 %>
     <div class='buy-item-info'>
-      <%= image_tag (@order.item_id.image), class: 'buy-item-img' %>
+      <%= image_tag (@item.image), class: 'buy-item-img' %>
       <div class='buy-item-right-content'>
         <h2 class='buy-item-text'>
-          <%= @purchase_item.item_id.name %>
+          <%= @item.name %>
         </h2>
         <div class='buy-item-price'>
-          <p class='item-price-text'>¥<%= @purchase_item.price %></p>
-          <p class='item-price-sub-text'><%= @purchase_item.item_id.shipping_fee_status_id.name %></p>
+          <p class='item-price-text'>¥<%= @item.price %></p>
+          <p class='item-price-sub-text'><%= @item.shipping_fee_status_id.name %></p>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
         支払金額
       </h1>
       <p class='item-payment-price'>
-        ¥<%= @purchase_item.item_id.price %>
+        ¥<%= @item.price %>
       </p>
     </div>
     <%# /支払額の表示 %>
@@ -74,8 +74,8 @@
     
     <%# 配送先の入力 %>
     <div class='shipping-address-form'>
-    <%= form_with(model: @purchase_item, url: orders_path, local: true) do |f| %>
-    <%= render 'error_messages', model: @purchase_item %>
+    <%= form_with(model: @order, url: orders_path, local: true) do |f| %>
+    <%= render 'error_messages', model: @order %>
       <h1 class='info-input-haedline'>
         配送先入力
       </h1>

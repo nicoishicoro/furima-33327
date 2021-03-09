@@ -1,17 +1,17 @@
 class OrdersController < ApplicationController
   def index
-    @purchase_item = PurchaseItem.new
+    @order = Order.new
   end
 
   def new
-    @purchase_item = PurchaseItem.new
+    @order = Order.new
   end
  
   def create
     binding.pry
-    @purchase_item = PurchaseItem.new(order_params)
-     if @purchase_item.valid?
-       @purchase_item.save
+    @order = Order.new(order_params)
+     if @order.valid?
+       @order.save
        redirect_to action: :index
      else
        render action: :new
@@ -20,6 +20,6 @@ class OrdersController < ApplicationController
  
   private
   def order_params
-   params.require(:purchase_item).permit(:name, :nickname, :postal_code, :prefecture_id, :city, :phone_number, :building, :price)
+   params.require(:order).permit(:name, :nickname, :postal_code, :prefecture_id, :city, :phone_number, :building, :price)
   end
 end
