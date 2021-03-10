@@ -1,17 +1,16 @@
 class OrdersController < ApplicationController
   def index
-    @order = Order.new
+    @item = Item.find(params[:id])
   end
 
   def new
-    @order = Order.new
+    @order_destination = OrderDestination.new
   end
  
   def create
-    binding.pry
-    @order = Order.new(order_params)
-     if @order.valid?
-       @order.save
+    @order_destination = OrderDestination.new(order_params)
+     if @order_destination.valid?
+       @order_destination.save
        redirect_to action: :index
      else
        render action: :new
@@ -20,6 +19,6 @@ class OrdersController < ApplicationController
  
   private
   def order_params
-   params.require(:order).permit(:name, :nickname, :postal_code, :prefecture_id, :city, :phone_number, :building, :price)
+   params.require(:order_destination).permit(:name, :image, :nickname, :postal_code, :prefecture_id, :city, :phone_number, :building, :price)
   end
 end
