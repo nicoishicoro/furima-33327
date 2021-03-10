@@ -1,15 +1,16 @@
-class OrderDestination < ApplicationRecord
+class OrderDestination
   include ActiveModel::Model
-  attr_accessor :nickname, :name, :image, :category_id, :sales_status_id, :shipping_fee_status_id, :prefecture_id, :scheduled_delivery_id, :price
+  attr_accessor :prefecture_id, :postal_code, :city, :address, :building, :phone_number, :user_id, :item_id
 
-  validates :postal_code,        presence: true
+  with_options presence: true do
+  validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/, message: "is invalid." }
   validates :prefecture_id, numericality: { other_than: 1 }
-  validates :city,               presence: true
-  validates :phone_number,       presence: true
+  validates :city
+  validates :phone_number
+  end
 
   def save
-    user = User.create(nickname: nickname)
-    Destination.create(postal_code: postal_code, prefecture_id: prefecture.id, city: city, address: address, building: building, phone_number: phone_number, order_id: order.id, item_id: item.id)
-    Order.create(user_id: user.id)
+    Order.create(item_id: item_id, user_id: user_id)
+    Destination.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, address: address, building: building, phone_number: phone_number, order_id: order.id)
   end
 end
