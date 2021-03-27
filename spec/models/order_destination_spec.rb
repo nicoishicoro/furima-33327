@@ -8,7 +8,7 @@ RSpec.describe OrderDestination, type: :model do
     describe '商品購入' do
       # 商品購入についてのテストコードを記述します
       context '商品購入できるとき' do
-        it 'postal_codeとprefecture_id、city、address、phone_numberが存在すれば購入できる' do
+        it 'postal_codeとprefecture_id、city、address、phone_number、tokenが存在すれば購入できる' do
           expect(@order_destination).to be_valid
         end
         it '郵便番号にハイフンが入っていれば購入できる' do
@@ -56,6 +56,11 @@ RSpec.describe OrderDestination, type: :model do
           @order_destination.phone_number = '000000000000'
           @order_destination.valid?
           expect(@order_destination.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
+        end
+        it "tokenが空では登録できないこと" do
+          @order_destination.token = nil
+          @order_destination.valid?
+          expect(@order_destination.errors.full_messages).to include("Token can't be blank")
         end
       end
     end
