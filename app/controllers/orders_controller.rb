@@ -7,9 +7,6 @@ class OrdersController < ApplicationController
   def index
     @order_destination = OrderDestination.new
   end
-
-  def new
-  end
  
   def create
     @order_destination = OrderDestination.new(order_params)
@@ -41,7 +38,7 @@ class OrdersController < ApplicationController
   end
 
   def move_to_index
-    if current_user.id == @item.user_id && @item.order == nil
+    if current_user.id == @item.user_id
       redirect_to root_path
     end
   end

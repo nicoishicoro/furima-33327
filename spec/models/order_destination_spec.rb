@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe OrderDestination, type: :model do
     before do
-      @order_destination = FactoryBot.build(:order_destination)
+      @order_destination = FactoryBot.build(:order_destination, user_id: 1, item_id: 1)
     end
 
     describe '商品購入' do
