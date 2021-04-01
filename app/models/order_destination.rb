@@ -7,8 +7,10 @@ class OrderDestination
   validates :prefecture_id, numericality: { other_than: 1 }
   validates :city
   validates :address
-  validates :phone_number, length: { maximum: 11 }
+  validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "is invalid." }
   validates :token
+  validates :user_id
+  validates :item_id
   end
 
   def save

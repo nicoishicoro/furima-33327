@@ -8,7 +8,7 @@ RSpec.describe OrderDestination, type: :model do
     describe '商品購入' do
       # 商品購入についてのテストコードを記述します
       context '商品購入できるとき' do
-        it 'postal_codeとprefecture_id、city、address、phone_number、tokenが存在すれば購入できる' do
+        it 'postal_codeとprefecture_id、city、address、phone_number、token、user_id、item_idが存在すれば購入できる' do
           expect(@order_destination).to be_valid
         end
         it '郵便番号にハイフンが入っていれば購入できる' do
@@ -17,6 +17,10 @@ RSpec.describe OrderDestination, type: :model do
         end
         it '電話番号が11桁以内且つ、ハイフンなしだと購入できる' do
           @order_destination.phone_number = '1234567890'
+          expect(@order_destination).to be_valid
+        end
+        it 'buildingが空でも購入できる' do
+          @order_destination.building = ''
           expect(@order_destination).to be_valid
         end
       end
@@ -53,14 +57,29 @@ RSpec.describe OrderDestination, type: :model do
           expect(@order_destination.errors.full_messages).to include("Phone number can't be blank")
         end
         it 'phone_numberが12桁以上だと購入できない' do
-          @order_destination.phone_number = '000000000000'
+          @order_destination.phone_number = '123456789012'
           @order_destination.valid?
-          expect(@order_destination.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
+          expect(@order_destination.errors.full_messages).to include("Phone number is invalid.")
         end
-        it "tokenが空では登録できないこと" do
+        it 'phone_numberが英数混合だと購入できない' do
+          @order_destination.phone_number = 'aaaaa00000'
+          @order_destination.valid?
+          expect(@order_destination.errors.full_messages).to include("Phone number is invalid.")
+        end
+        it 'tokenが空では登録できないこと' do
           @order_destination.token = nil
           @order_destination.valid?
           expect(@order_destination.errors.full_messages).to include("Token can't be blank")
+        end
+        it 'user_idが空では購入できない' do
+          @order_destination.user_id = ''
+          @order_destination.valid?
+          expect(@order_destination.errors.full_messages).to include("User can't be blank")
+        end
+        it 'item_idが空では購入できない' do
+          @order_destination.item_id = ''
+          @order_destination.valid?
+          expect(@order_destination.errors.full_messages).to include("Item can't be blank")
         end
       end
     end
