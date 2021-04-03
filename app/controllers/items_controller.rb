@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :item_find, only: [:show, :edit, :update, :destroy]
   before_action :usercurrent, only: [:edit, :update]
+  before_action :sold, only: [:edit, :update]
 
   def index
     @items = Item.all.order(id: 'DESC')
@@ -52,5 +53,9 @@ class ItemsController < ApplicationController
 
   def usercurrent
     redirect_to root_path unless current_user.id == @item.user_id
+  end
+
+  def sold
+    redirect_to root_path unless @item.order == nil
   end
 end

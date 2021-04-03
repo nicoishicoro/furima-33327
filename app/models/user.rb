@@ -5,11 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :password,        presence: true, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: '半角英数字を含めてください' }
-
-  with_options presence: true do
-    validates :nickname
-    validates :birth_date
-  end
+  validates :nickname,        presence: true
+  validates :birth_date,      presence: true
 
   with_options presence: true, format: { with: /\A[ぁ-ん一-龥々]+\z/, message: '全角文字を使用してください' } do
     validates :first_name
@@ -22,5 +19,5 @@ class User < ApplicationRecord
   end
 
   has_many :items
-  has_many :purchase_items
+  has_many :orders
 end
